@@ -557,10 +557,6 @@ export default {
             this.config.description = sanitizeHtml(this.config.description);
             this.config.footerText = sanitizeHtml(this.config.footerText);
 
-            // Worst markup implementation ever
-            this.config.description = markupLinks(this.config.description);
-            this.config.footerText = markupLinks(this.config.footerText);
-
             if (!this.config.domainNameList) {
                 this.config.domainNameList = [];
             }
