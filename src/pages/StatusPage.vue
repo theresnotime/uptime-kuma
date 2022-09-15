@@ -305,7 +305,7 @@ import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhe
 import { useToast } from "vue-toastification";
 import Confirm from "../components/Confirm.vue";
 import PublicGroupList from "../components/PublicGroupList.vue";
-import { getResBaseURL, markupLinks } from "../util-frontend";
+import { getResBaseURL } from "../util-frontend";
 import { STATUS_PAGE_ALL_DOWN, STATUS_PAGE_ALL_UP, STATUS_PAGE_PARTIAL_DOWN, UP } from "../util.ts";
 import sanitizeHtml from "sanitize-html";
 
