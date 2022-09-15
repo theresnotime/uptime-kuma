@@ -225,8 +225,13 @@
             </div>
 
             <!-- Description -->
-            <strong v-if="editMode">{{ $t("Description") }}:</strong>
-            <Editable v-model="config.description" :contenteditable="editMode" tag="div" class="mb-4 description" />
+            <div v-if="editMode">
+                <strong v-if="editMode">{{ $t("Description") }}:</strong>
+                <Editable v-model="config.description" :contenteditable="editMode" tag="div" class="mb-4 description" />
+            </div>
+            <div v-else>
+                <div class="mb-4 description" v-html="config.description"></div>
+            </div>
 
             <div v-if="editMode" class="mb-4">
                 <div>
@@ -259,11 +264,16 @@
             </div>
 
             <footer class="mt-5 mb-4">
-                <div class="custom-footer-text text-start">
-                    <strong v-if="enableEditMode">{{ $t("Custom Footer") }}:</strong>
+                <!-- Footer -->
+                <div v-if="editMode">
+                    <div class="custom-footer-text text-start">
+                        <strong v-if="enableEditMode">{{ $t("Custom Footer") }}:</strong>
+                    </div>
+                    <Editable v-model="config.footerText" tag="div" :contenteditable="enableEditMode" :noNL="false" class="alert-heading p-2" />
                 </div>
-                <Editable v-model="config.footerText" tag="div" :contenteditable="enableEditMode" :noNL="false" class="alert-heading p-2" />
-
+                <div v-else>
+                    <div class="alert-heading p-2" v-html="config.footerText"></div>
+                </div>
                 <p v-if="config.showPoweredBy">
                     {{ $t("Powered by") }} <a target="_blank" rel="noopener noreferrer" href="https://github.com/louislam/uptime-kuma">{{ $t("Uptime Kuma" ) }}</a>
                 </p>
@@ -295,8 +305,9 @@ import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhe
 import { useToast } from "vue-toastification";
 import Confirm from "../components/Confirm.vue";
 import PublicGroupList from "../components/PublicGroupList.vue";
-import { getResBaseURL } from "../util-frontend";
+import { getResBaseURL, markupLinks } from "../util-frontend";
 import { STATUS_PAGE_ALL_DOWN, STATUS_PAGE_ALL_UP, STATUS_PAGE_PARTIAL_DOWN, UP } from "../util.ts";
+import sanitizeHtml from "sanitize-html";
 
 const toast = useToast();
 
@@ -541,6 +552,14 @@ export default {
 
         this.getData().then((res) => {
             this.config = res.data.config;
+
+            // Sanitize HTML
+            this.config.description = sanitizeHtml(this.config.description);
+            this.config.footerText = sanitizeHtml(this.config.footerText);
+
+            // Worst markup implementation ever
+            this.config.description = markupLinks(this.config.description);
+            this.config.footerText = markupLinks(this.config.footerText);
 
             if (!this.config.domainNameList) {
                 this.config.domainNameList = [];

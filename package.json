@@ -104,6 +104,7 @@
         "prom-client": "~13.2.0",
         "prometheus-api-metrics": "~3.2.1",
         "redbean-node": "0.1.4",
+        "sanitize-html": "^2.7.2",
         "socket.io": "~4.4.1",
         "socket.io-client": "~4.4.1",
         "socks-proxy-agent": "6.1.1",
