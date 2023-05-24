@@ -317,6 +317,7 @@
 
             <footer class="mt-5 mb-4">
                 <!-- Footer -->
+                <strong v-if="enableEditMode">{{ $t("Custom Footer") }}:</strong>
                 <div v-if="editMode">
                     <div class="custom-footer-text text-start">
                         <strong v-if="enableEditMode">{{ $t("Custom Footer") }}:</strong>
@@ -326,13 +327,6 @@
                 <div v-else>
                     <div class="alert-heading p-2" v-html="config.footerText"></div>
                 </div>
-<<<<<<< HEAD
-=======
-                <Editable v-if="enableEditMode" v-model="config.footerText" tag="div" :contenteditable="enableEditMode" :noNL="false" class="alert-heading p-2" />
-                <!-- eslint-disable-next-line vue/no-v-html-->
-                <div v-if="! enableEditMode" class="alert-heading p-2" v-html="footerHTML"></div>
-
->>>>>>> master
                 <p v-if="config.showPoweredBy">
                     {{ $t("Powered by") }} <a target="_blank" rel="noopener noreferrer" href="https://github.com/louislam/uptime-kuma">{{ $t("Uptime Kuma" ) }}</a>
                 </p>
@@ -374,15 +368,11 @@ import Confirm from "../components/Confirm.vue";
 import PublicGroupList from "../components/PublicGroupList.vue";
 import MaintenanceTime from "../components/MaintenanceTime.vue";
 import DateTime from "../components/Datetime.vue";
-import { getResBaseURL } from "../util-frontend";
-<<<<<<< HEAD
-import { STATUS_PAGE_ALL_DOWN, STATUS_PAGE_ALL_UP, STATUS_PAGE_PARTIAL_DOWN, UP } from "../util.ts";
-import sanitizeHtml from "sanitize-html";
-=======
+import { getResBaseURL, markupLinks } from "../util-frontend";
 import { STATUS_PAGE_ALL_DOWN, STATUS_PAGE_ALL_UP, STATUS_PAGE_MAINTENANCE, STATUS_PAGE_PARTIAL_DOWN, UP, MAINTENANCE } from "../util.ts";
+import sanitizeHtml from "sanitize-html";
 import Tag from "../components/Tag.vue";
 import VueMultiselect from "vue-multiselect";
->>>>>>> master
 
 const toast = useToast();
 dayjs.extend(duration);

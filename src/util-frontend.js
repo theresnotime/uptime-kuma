@@ -120,3 +120,15 @@ export function colorOptions(self) {
             color: "#DB2777" },
     ];
 }
+
+/**
+ * Convert link markup to HTML link tags
+ * @param {string} content The content to convert
+ * @returns {string} The converted content
+ */
+export function markupLinks(content) {
+    return content.replaceAll(
+        /\[(.*?)\]\((.*?)\)/gmi,
+        "<a href=\"$2\">$1</a>"
+    );
+}
