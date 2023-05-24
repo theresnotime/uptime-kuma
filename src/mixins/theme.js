@@ -39,6 +39,9 @@ export default {
             }
 
             if (this.path.startsWith("/status-page") || this.path.startsWith("/status")) {
+                if (this.statusPageTheme === "auto") {
+                    return this.system;
+                }
                 return this.statusPageTheme;
             } else {
                 if (this.userTheme === "auto") {
@@ -46,6 +49,10 @@ export default {
                 }
                 return this.userTheme;
             }
+        },
+
+        isDark() {
+            return this.theme === "dark";
         }
     },
 
